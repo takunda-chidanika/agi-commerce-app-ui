@@ -1,55 +1,100 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { Tabs } from 'expo-router/tabs';
+import { StyleSheet, Text, View } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Colors from '../../constants/Colors';
+export default function AppLayout() {
+    return (
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    position: 'absolute',
+                    borderTopLeftRadius: 50,
+                    borderTopRightRadius: 50,
+                    elevation: 0,
+                    backgroundColor: '#DCE8D6',
+                    height: 90,
+                    ...styles
+                }
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+            }}
+        >
+            <Tabs.Screen name='home'
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className='items-center justify-center top-[5px] space-y-1'>
+                            <Entypo name="home" color="#013220" size={30} />
+                            {
+                                focused &&
+                                <View className='w-5 h-1 bg-[#013220] rounded-2xl' />
+                            }
+                        </View>
+                    )
+                }} />
+            <Tabs.Screen name='health'
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className='items-center justify-center top-[5px] space-y-1'>
+                            <Entypo name="tree" size={30} color="#013220" />
+                            {
+                                focused &&
+                                <View className='w-5 h-1 bg-[#013220] rounded-2xl' />
+                            }
+                        </View>
+                    )
+                }} />
+            <Tabs.Screen name='subscriptions'
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className='items-center justify-center top-[5px] space-y-1'>
+                            <MaterialCommunityIcons name="crown-circle-outline" size={60} color="#EED034" />
+                            <View className='w-5 h-1 bg-[#EED034] rounded-2xl' />
+                        </View>
+                    )
+                }} />
+            <Tabs.Screen name='eCommerce'
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className='items-center justify-center top-[5px] space-y-1'>
+                            <FontAwesome5 name="store" size={30} color="#013220" />
+                            {
+                                focused &&
+                                <View className='w-5 h-1 bg-[#013220] rounded-2xl' />
+                            }
+                        </View>
+                    )
+                }} />
+            <Tabs.Screen name='recommendations'
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View className='items-center justify-center top-[5px] space-y-1'>
+                            <AntDesign name="tool" size={30} color="#013220" />
+                            {
+                                focused &&
+                                <View className='w-5 h-1 bg-[#013220] rounded-2xl' />
+                            }
+                        </View>
+                    )
+                }} />
+
+
+        </Tabs>
+    );
 }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
-}
+const styles = StyleSheet.create({
+    shadow: {
+        shadowColor: '#75f5df0',
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5,
+    }
+})
